@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simon Cazé — Portfolio BTS SIO SISR</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue-900: #042C53;
+    --blue-800: #0C447C;
+    --blue-700: #185FA5;
+    --blue-500: #378ADD;
+    --blue-300: #85B7EB;
+    --blue-100: #B5D4F4;
+    --blue-50:  #E6F1FB;
+    --teal-700: #0F6E56;
+    --teal-500: #1D9E75;
+    --teal-50:  #E1F5EE;
+    --gray-900: #0f1923;
+    --gray-800: #151f2e;
+    --gray-700: #1c2a3a;
+    --gray-600: #243347;
+    --gray-400: #4a6080;
+    --gray-300: #7a93af;
+    --gray-200: #a8bcce;
+    --gray-100: #d0dde8;
+    --white: #f0f5fa;
+    --accent: #378ADD;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--gray-900); color: var(--white); line-height: 1.7; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(55,138,221,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(55,138,221,0.04) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; z-index: 0; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(15,25,35,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(55,138,221,0.15); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--white); text-decoration: none; letter-spacing: -0.02em; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 0.25rem; list-style: none; }
+  .nav-links a { font-size: 0.8rem; font-weight: 500; color: var(--gray-200); text-decoration: none; padding: 0.3rem 0.75rem; border-radius: 6px; transition: all 0.2s; }
+  .nav-links a:hover { color: var(--white); background: rgba(55,138,221,0.12); }
+
+  /* HERO */
+  #accueil { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 6rem 2rem 4rem; z-index: 1; overflow: hidden; }
+  .hero-glow { position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(55,138,221,0.12) 0%, transparent 65%); pointer-events: none; }
+  .hero-glow-2 { position: absolute; bottom: -100px; left: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(29,158,117,0.07) 0%, transparent 65%); pointer-events: none; }
+  .hero-inner { max-width: 1100px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(55,138,221,0.12); border: 1px solid rgba(55,138,221,0.3); border-radius: 99px; padding: 4px 14px; font-size: 0.75rem; font-weight: 500; color: var(--blue-300); margin-bottom: 1.5rem; letter-spacing: 0.05em; text-transform: uppercase; }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--teal-500); border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
+  .hero-name { font-family: 'Syne', sans-serif; font-size: clamp(2.8rem, 6vw, 5rem); font-weight: 800; line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+  .hero-name span { display: block; color: var(--accent); }
+  .hero-sub { font-size: 1.05rem; color: var(--gray-200); font-weight: 300; margin-bottom: 2rem; line-height: 1.6; }
+  .hero-sub strong { color: var(--blue-300); font-weight: 500; }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+  .tag { font-size: 0.75rem; font-weight: 500; padding: 4px 12px; border-radius: 6px; background: var(--gray-700); border: 1px solid var(--gray-600); color: var(--gray-200); }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: #fff; font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.875rem; padding: 0.7rem 1.5rem; border-radius: 8px; text-decoration: none; transition: all 0.2s; border: none; cursor: pointer; }
+  .btn-primary:hover { background: var(--blue-700); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(55,138,221,0.3); }
+  .btn-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--gray-200); font-family: 'DM Sans', sans-serif; font-weight: 500; font-size: 0.875rem; padding: 0.7rem 1.5rem; border-radius: 8px; text-decoration: none; transition: all 0.2s; border: 1px solid var(--gray-600); cursor: pointer; }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: rgba(55,138,221,0.06); }
+  .hero-card { background: var(--gray-800); border: 1px solid rgba(55,138,221,0.2); border-radius: 16px; padding: 2rem; position: relative; overflow: hidden; }
+  .hero-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--teal-500)); }
+  .card-school { font-size: 0.75rem; color: var(--gray-300); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.25rem; }
+  .card-degree { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--white); margin-bottom: 1.5rem; }
+  .info-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 1rem; }
+  .info-icon { width: 32px; height: 32px; background: rgba(55,138,221,0.1); border: 1px solid rgba(55,138,221,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .info-label { color: var(--gray-300); font-size: 0.75rem; }
+  .info-value { color: var(--white); font-weight: 500; font-size: 0.875rem; }
+  .divider-line { height: 1px; background: linear-gradient(90deg, rgba(55,138,221,0.3), transparent); margin: 1.25rem 0; }
+
+  /* SECTIONS */
+  section { position: relative; z-index: 1; padding: 5rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label { font-size: 0.7rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 0.5rem; }
+  .section-title { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; letter-spacing: -0.02em; color: var(--white); margin-bottom: 0.5rem; line-height: 1.1; }
+  .section-desc { font-size: 1rem; color: var(--gray-300); max-width: 600px; margin-bottom: 3rem; font-weight: 300; }
+
+  /* ══════════════════════════════════
+     PARCOURS — FRISE CHRONOLOGIQUE
+  ══════════════════════════════════ */
+  #parcours { background: var(--gray-800); }
+
+  .timeline-wrap { position: relative; max-width: 820px; margin: 0 auto; }
+  .timeline-wrap::after { content: ''; position: absolute; width: 2px; background: linear-gradient(to bottom, var(--accent), rgba(55,138,221,0.1)); top: 0; bottom: 0; left: 50%; transform: translateX(-50%); }
+
+  .tl-block { padding: 10px 48px; position: relative; width: 50%; box-sizing: border-box; }
+  .tl-block::after { content: ''; position: absolute; width: 16px; height: 16px; right: -8px; background: var(--gray-800); border: 3px solid var(--accent); top: 18px; border-radius: 50%; z-index: 1; }
+  .tl-block.left { left: 0; text-align: right; }
+  .tl-block.right { left: 50%; }
+  .tl-block.right::after { left: -8px; }
+
+  .tl-content { padding: 18px 22px; background: var(--gray-900); border: 1px solid var(--gray-600); border-radius: 10px; position: relative; transition: border-color 0.2s; }
+  .tl-content:hover { border-color: rgba(55,138,221,0.4); }
+  .tl-content.bts { border-top: 4px solid var(--accent); }
+  .tl-content.bac { border-top: 4px solid var(--teal-500); }
+  .tl-content.college { border-top: 4px solid #EF9F27; }
+  .tl-content.primaire { border-top: 4px solid var(--gray-400); }
+
+  .tl-year { font-family: 'Syne', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--accent); margin-bottom: 4px; letter-spacing: 0.05em; }
+  .tl-title { font-weight: 500; font-size: 0.9rem; color: var(--white); margin-bottom: 2px; }
+  .tl-sub { font-size: 0.82rem; color: var(--gray-300); }
+  .tl-diplome { font-size: 0.78rem; font-weight: 500; color: #EF9F27; margin-top: 6px; }
+
+  /* ══════════════════════════════════
+     STAGE
+  ══════════════════════════════════ */
+  #stage { }
+  .stage-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 2.5rem; align-items: start; }
+  .stage-info-card { background: var(--gray-800); border: 1px solid rgba(55,138,221,0.15); border-radius: 12px; padding: 1.5rem; position: sticky; top: 80px; }
+  .stage-org { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--white); margin-bottom: 0.25rem; }
+  .stage-period { font-size: 0.8rem; color: var(--accent); font-weight: 500; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 6px; }
+  .stage-period::before { content: ''; width: 6px; height: 6px; background: var(--teal-500); border-radius: 50%; }
+  .missions-list { display: flex; flex-direction: column; gap: 1.25rem; }
+  .mission-card { background: var(--gray-800); border: 1px solid var(--gray-600); border-radius: 10px; padding: 1.25rem 1.5rem; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+  .mission-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .mission-card:hover { border-color: rgba(55,138,221,0.4); transform: translateX(4px); }
+  .mission-card:hover::before { opacity: 1; }
+  .mission-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+  .mission-desc { font-size: 0.875rem; color: var(--gray-300); line-height: 1.65; }
+  .mission-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+  .mission-tag { font-size: 0.7rem; font-weight: 500; padding: 2px 8px; border-radius: 4px; background: rgba(55,138,221,0.1); border: 1px solid rgba(55,138,221,0.2); color: var(--blue-300); }
+
+  /* ══════════════════════════════════
+     PROJETS — ONGLETS + ACCORDÉON
+  ══════════════════════════════════ */
+  #projets { background: var(--gray-800); }
+
+  .proj-tabs { display: flex; gap: 0.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+  .proj-tab { font-size: 0.82rem; font-weight: 500; padding: 0.5rem 1.25rem; border-radius: 8px; background: var(--gray-700); border: 1px solid var(--gray-600); color: var(--gray-200); cursor: pointer; transition: all 0.2s; }
+  .proj-tab:hover { border-color: var(--accent); color: var(--white); }
+  .proj-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .proj-panel { display: none; }
+  .proj-panel.active { display: block; }
+
+  /* Cartes PPE (style nhervet) */
+  .ppe-section-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 1.25rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--gray-600); }
+
+  .ppe-card { background: var(--gray-900); border: 1px solid var(--gray-600); border-radius: 12px; margin-bottom: 1.25rem; overflow: hidden; transition: border-color 0.2s; }
+  .ppe-card:hover { border-color: rgba(55,138,221,0.35); }
+  .ppe-card-header { padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; }
+  .ppe-card-left { display: flex; align-items: center; gap: 1rem; }
+  .ppe-num-badge { font-size: 0.7rem; font-weight: 700; color: var(--accent); background: rgba(55,138,221,0.1); border: 1px solid rgba(55,138,221,0.25); border-radius: 6px; padding: 3px 10px; white-space: nowrap; letter-spacing: 0.05em; text-transform: uppercase; }
+  .ppe-card-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); }
+  .ppe-card-meta { font-size: 0.78rem; color: var(--gray-300); margin-top: 2px; }
+  .ppe-chevron { color: var(--gray-400); font-size: 18px; transition: transform 0.3s; flex-shrink: 0; }
+  .ppe-card.open .ppe-chevron { transform: rotate(180deg); }
+  .ppe-card-body { display: none; padding: 0 1.5rem 1.5rem; }
+  .ppe-card.open .ppe-card-body { display: block; }
+  .ppe-desc { font-size: 0.875rem; color: var(--gray-300); line-height: 1.7; margin-bottom: 1rem; }
+  .ppe-tech-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+  .ppe-tech { font-size: 0.7rem; font-weight: 500; padding: 3px 10px; border-radius: 4px; background: rgba(55,138,221,0.08); border: 1px solid rgba(55,138,221,0.2); color: var(--blue-300); }
+  .ppe-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+  .btn-doc { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 500; padding: 0.5rem 1.1rem; border-radius: 7px; text-decoration: none; transition: all 0.2s; cursor: pointer; }
+  .btn-doc-primary { background: var(--accent); color: #fff; border: none; }
+  .btn-doc-primary:hover { background: var(--blue-700); }
+  .btn-doc-outline { background: transparent; color: var(--gray-200); border: 1px solid var(--gray-600); }
+  .btn-doc-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* Accordéon TP (style iratnihocine) */
+  .tp-list { display: flex; flex-direction: column; gap: 0.75rem; }
+  .tp-item { background: var(--gray-900); border: 1px solid var(--gray-600); border-radius: 10px; overflow: hidden; transition: border-color 0.2s; }
+  .tp-item:hover { border-color: rgba(55,138,221,0.3); }
+  .tp-header { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.25rem; cursor: pointer; user-select: none; }
+  .tp-icon { width: 34px; height: 34px; border-radius: 8px; background: rgba(55,138,221,0.1); border: 1px solid rgba(55,138,221,0.2); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+  .tp-name { font-size: 0.9rem; font-weight: 500; color: var(--white); flex: 1; }
+  .tp-tag { font-size: 0.7rem; color: var(--teal-500); background: rgba(29,158,117,0.08); border: 1px solid rgba(29,158,117,0.2); border-radius: 4px; padding: 2px 8px; }
+  .tp-arrow { color: var(--gray-400); font-size: 16px; transition: transform 0.3s; flex-shrink: 0; }
+  .tp-item.open .tp-arrow { transform: rotate(180deg); }
+  .tp-body { display: none; padding: 0 1.25rem 1.25rem 1.25rem; border-top: 1px solid var(--gray-600); padding-top: 1rem; }
+  .tp-item.open .tp-body { display: block; }
+  .tp-body-desc { font-size: 0.85rem; color: var(--gray-300); line-height: 1.65; margin-bottom: 0.75rem; }
+  .tp-body-tech { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
+  .tp-body-actions { display: flex; gap: 0.6rem; }
+
+  /* ══════════════════════════════════
+     VEILLE
+  ══════════════════════════════════ */
+  #veille { }
+  .veille-intro { background: var(--gray-800); border: 1px solid rgba(55,138,221,0.2); border-radius: 12px; padding: 1.5rem 2rem; margin-bottom: 2.5rem; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; }
+  .vi-label { font-size: 0.7rem; color: var(--gray-300); text-transform: uppercase; letter-spacing: 0.08em; display: block; margin-bottom: 3px; }
+  .vi-value { font-size: 0.9rem; font-weight: 500; color: var(--white); }
+
+  .vtimeline { position: relative; padding-left: 2rem; }
+  .vtimeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--accent), rgba(55,138,221,0.1)); }
+  .vtl-item { position: relative; margin-bottom: 1.5rem; }
+  .vtl-dot { position: absolute; left: -28px; top: 12px; width: 14px; height: 14px; background: var(--gray-900); border: 2px solid var(--accent); border-radius: 50%; z-index: 1; }
+  .vtl-card { background: var(--gray-800); border: 1px solid var(--gray-600); border-radius: 10px; padding: 1.25rem 1.5rem; transition: border-color 0.2s; }
+  .vtl-card:hover { border-color: rgba(55,138,221,0.35); }
+  .vtl-month { font-size: 0.7rem; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .vtl-title { font-family: 'Syne', sans-serif; font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+  .vtl-source { font-size: 0.75rem; color: var(--blue-300); margin-bottom: 0.6rem; }
+  .vtl-source a { color: var(--blue-300); text-decoration: none; }
+  .vtl-source a:hover { text-decoration: underline; }
+  .vtl-desc { font-size: 0.85rem; color: var(--gray-300); line-height: 1.65; margin-bottom: 0.75rem; }
+  .vtl-impact { font-size: 0.72rem; color: var(--teal-500); background: rgba(29,158,117,0.08); border: 1px solid rgba(29,158,117,0.2); border-radius: 4px; padding: 3px 8px; display: inline-block; }
+  .vtl-link { font-size: 0.75rem; color: var(--accent); text-decoration: none; float: right; }
+  .vtl-link:hover { text-decoration: underline; }
+
+  /* ══════════════════════════════════
+     COMPÉTENCES
+  ══════════════════════════════════ */
+  #competences { background: var(--gray-800); }
+  .comp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+  .comp-category { background: var(--gray-900); border: 1px solid var(--gray-600); border-radius: 12px; overflow: hidden; }
+  .comp-cat-header { padding: 1rem 1.25rem; background: rgba(55,138,221,0.08); border-bottom: 1px solid var(--gray-600); display: flex; align-items: center; gap: 8px; }
+  .comp-cat-title { font-family: 'Syne', sans-serif; font-size: 0.875rem; font-weight: 700; color: var(--white); }
+  .comp-items { padding: 1rem 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+  .comp-item { display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; gap: 0.75rem; }
+  .comp-name { color: var(--gray-200); }
+  .comp-bar-wrap { flex: 1; height: 4px; background: var(--gray-600); border-radius: 99px; overflow: hidden; max-width: 100px; }
+  .comp-bar { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--accent), var(--teal-500)); }
+  .comp-level { font-size: 0.7rem; color: var(--gray-300); min-width: 45px; text-align: right; }
+
+  /* ══════════════════════════════════
+     CONTACT
+  ══════════════════════════════════ */
+  #contact { }
+  .contact-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .contact-text { font-size: 1rem; color: var(--gray-300); line-height: 1.7; font-weight: 300; margin-bottom: 2rem; }
+  .contact-links { display: flex; flex-direction: column; gap: 0.75rem; }
+  .contact-link-item { display: flex; align-items: center; gap: 12px; padding: 0.875rem 1.25rem; background: var(--gray-800); border: 1px solid var(--gray-600); border-radius: 10px; text-decoration: none; transition: all 0.2s; color: var(--white); }
+  .contact-link-item:hover { border-color: var(--accent); background: rgba(55,138,221,0.06); }
+  .cli-icon { width: 36px; height: 36px; background: rgba(55,138,221,0.1); border: 1px solid rgba(55,138,221,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .cli-label { font-size: 0.75rem; color: var(--gray-300); }
+  .cli-value { font-size: 0.875rem; font-weight: 500; color: var(--white); }
+  .contact-form-card { background: var(--gray-800); border: 1px solid rgba(55,138,221,0.15); border-radius: 12px; padding: 2rem; }
+  .form-group { margin-bottom: 1.25rem; }
+  .form-label { display: block; font-size: 0.75rem; font-weight: 500; color: var(--gray-300); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.4rem; }
+  .form-input, .form-textarea { width: 100%; background: var(--gray-900); border: 1px solid var(--gray-600); border-radius: 8px; padding: 0.75rem 1rem; color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.875rem; transition: border-color 0.2s; outline: none; }
+  .form-input:focus, .form-textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(55,138,221,0.1); }
+  .form-textarea { min-height: 120px; resize: vertical; }
+
+  /* FOOTER */
+  footer { position: relative; z-index: 1; text-align: center; padding: 2rem; border-top: 1px solid var(--gray-600); font-size: 0.8rem; color: var(--gray-400); }
+  footer span { color: var(--accent); }
+
+  /* ANIMATIONS */
+  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .stage-grid { grid-template-columns: 1fr; }
+    .stage-info-card { position: static; }
+    .veille-intro { grid-template-columns: 1fr; }
+    .contact-wrap { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+    .timeline-wrap::after { left: 16px; }
+    .tl-block { width: 100%; padding-left: 50px; padding-right: 15px; text-align: left; }
+    .tl-block::after { left: 8px; right: auto; }
+    .tl-block.right { left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#accueil" class="nav-logo">Simon<span>.</span>dev</a>
+  <ul class="nav-links">
+    <li><a href="#accueil">Accueil</a></li>
+    <li><a href="#parcours">Parcours</a></li>
+    <li><a href="#stage">Stage</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#veille">Veille</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="accueil">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-badge">BTS SIO — SISR — 2ème année</div>
+      <h1 class="hero-name">Simon<span>Cazé</span></h1>
+      <p class="hero-sub">Futur technicien en <strong>réseaux & cybersécurité</strong>,<br>formé au lycée Gaston Berger, Lille.<br>Passionné par la sécurité des infrastructures et le modèle <strong>Zero Trust</strong>.</p>
+      <div class="hero-tags">
+        <span class="tag">Réseaux</span>
+        <span class="tag">Cybersécurité</span>
+        <span class="tag">Virtualisation</span>
+        <span class="tag">Active Directory</span>
+        <span class="tag">Windows Server</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#stage" class="btn-primary">Voir mon parcours</a>
+        <a href="#contact" class="btn-outline">Me contacter</a>
+      </div>
+    </div>
+    <div class="hero-card fade-in">
+      <div class="card-school">Lycée Gaston Berger — Lille</div>
+      <div class="card-degree">BTS SIO — Option SISR</div>
+      <div class="info-row">
+        <div class="info-icon">🏥</div>
+        <div><div class="info-label">Lieu de stage</div><div class="info-value">Hôpital Saint-Philibert</div></div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">📅</div>
+        <div><div class="info-label">Durée totale</div><div class="info-value">12 semaines (6 sem. × 2 ans)</div></div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">🔍</div>
+        <div><div class="info-label">Veille technologique</div><div class="info-value">Modèle Zero Trust</div></div>
+      </div>
+      <div class="divider-line"></div>
+      <div class="info-row">
+        <div class="info-icon">🎯</div>
+        <div><div class="info-label">Objectif</div><div class="info-value">Technicien réseau & sécurité</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARCOURS -->
+<section id="parcours">
+  <div class="section-inner">
+    <div class="section-label">Mon histoire</div>
+    <h2 class="section-title">Parcours scolaire</h2>
+    <p class="section-desc">De l'école primaire au BTS SIO, mon chemin vers l'informatique et les réseaux.</p>
+    <div class="timeline-wrap fade-in">
+
+      <div class="tl-block left">
+        <div class="tl-content bts">
+          <div class="tl-year">2025 — 2026</div>
+          <div class="tl-title">BTS SIO option SISR — 2ème année</div>
+          <div class="tl-sub">Lycée Gaston Berger, Lille</div>
+        </div>
+      </div>
+
+      <div class="tl-block right">
+        <div class="tl-content bts">
+          <div class="tl-year">2024 — 2025</div>
+          <div class="tl-title">BTS SIO option SISR — 1ère année</div>
+          <div class="tl-sub">Lycée Gaston Berger, Lille</div>
+        </div>
+      </div>
+
+      <div class="tl-block left">
+        <div class="tl-content bac">
+          <div class="tl-year">2023 — 2024</div>
+          <div class="tl-title">Terminale — Lycée Élisa Lemonnier, Douai</div>
+          <div class="tl-diplome">🏅 Bac Pro SN (RISC) — Mention Bien</div>
+        </div>
+      </div>
+
+      <div class="tl-block right">
+        <div class="tl-content bac">
+          <div class="tl-year">2022 — 2023</div>
+          <div class="tl-title">Première — Lycée Edmond Labbé, Douai</div>
+          <div class="tl-sub">Bac Pro SN option RISC</div>
+        </div>
+      </div>
+
+      <div class="tl-block left">
+        <div class="tl-content bac">
+          <div class="tl-year">2021 — 2022</div>
+          <div class="tl-title">Seconde — Lycée Edmond Labbé, Douai</div>
+        </div>
+      </div>
+
+      <div class="tl-block right">
+        <div class="tl-content college">
+          <div class="tl-year">2017 — 2021</div>
+          <div class="tl-title">Collège du Pévèle, Orchies</div>
+          <div class="tl-diplome">🏅 Brevet des collèges — Mention Assez Bien</div>
+        </div>
+      </div>
+
+      <div class="tl-block left">
+        <div class="tl-content primaire">
+          <div class="tl-year">2009 — 2017</div>
+          <div class="tl-title">École Primaire Notre Dame de la Providence</div>
+          <div class="tl-sub">Orchies</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STAGE -->
+<section id="stage">
+  <div class="section-inner">
+    <div class="section-label">Expérience professionnelle</div>
+    <h2 class="section-title">Mon stage</h2>
+    <p class="section-desc">Deux périodes de stage au service informatique de l'hôpital Saint-Philibert, 12 semaines au total.</p>
+    <div class="stage-grid fade-in">
+      <div class="stage-info-card">
+        <div class="stage-org">Hôpital Saint-Philibert</div>
+        <div class="stage-period">12 semaines — 2 périodes</div>
+        <div style="font-size:0.82rem;color:var(--gray-300);line-height:1.6;margin-bottom:1rem;">Structure de santé à haute disponibilité, avec un parc informatique important et des exigences strictes liées aux données médicales.</div>
+        <div style="font-size:0.75rem;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem;">Technologies utilisées</div>
+        <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
+          <span class="tag">Windows Server</span><span class="tag">Active Directory</span><span class="tag">Exchange</span><span class="tag">MDT</span><span class="tag">GPO</span>
+        </div>
+      </div>
+      <div class="missions-list">
+        <div class="mission-card">
+          <div class="mission-title">Masterisation d'un poste de travail</div>
+          <div class="mission-desc">Déploiement d'une image système standardisée (master) sur des postes de travail afin d'homogénéiser le parc informatique. Utilisation d'outils de déploiement automatisé pour réduire le temps d'installation.</div>
+          <div class="mission-tags"><span class="mission-tag">MDT</span><span class="mission-tag">Windows 10/11</span><span class="mission-tag">Déploiement</span></div>
+        </div>
+        <div class="mission-card">
+          <div class="mission-title">Installation d'une station d'accueil</div>
+          <div class="mission-desc">Configuration matérielle et logicielle d'une station d'accueil pour son intégration dans le réseau existant. Vérification de la compatibilité, des pilotes et test des périphériques connectés.</div>
+          <div class="mission-tags"><span class="mission-tag">Hardware</span><span class="mission-tag">Configuration</span><span class="mission-tag">Réseau</span></div>
+        </div>
+        <div class="mission-card">
+          <div class="mission-title">Intégration dans l'Active Directory</div>
+          <div class="mission-desc">Création et gestion de comptes utilisateurs dans l'Active Directory, attribution des droits d'accès, configuration des boîtes mail Exchange et provisionnement des espaces de stockage réseau.</div>
+          <div class="mission-tags"><span class="mission-tag">Active Directory</span><span class="mission-tag">Exchange</span><span class="mission-tag">GPO</span><span class="mission-tag">Stockage réseau</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETS -->
+<section id="projets">
+  <div class="section-inner">
+    <div class="section-label">Réalisations techniques</div>
+    <h2 class="section-title">Mes projets</h2>
+    <p class="section-desc">PPE, travaux pratiques et documentations techniques réalisés en formation et en stage.</p>
+
+    <!-- ONGLETS -->
+    <div class="proj-tabs">
+      <div class="proj-tab active" onclick="switchTab('ppe', this)">📁 PPE — Projets E5</div>
+      <div class="proj-tab" onclick="switchTab('tp', this)">🛠️ Procédures Techniques</div>
+    </div>
+
+    <!-- PANNEAU PPE -->
+    <div id="panel-ppe" class="proj-panel active">
+      <div class="ppe-section-title">Épreuve E5 — Projets Professionnels Encadrés</div>
+
+      <div class="ppe-card" id="ppe1">
+        <div class="ppe-card-header" onclick="togglePpe('ppe1')">
+          <div class="ppe-card-left">
+            <span class="ppe-num-badge">PPE 01</span>
+            <div>
+              <div class="ppe-card-title">À compléter — Ton 1er projet PPE</div>
+              <div class="ppe-card-meta">Lycée Gaston Berger · 2024-2025</div>
+            </div>
+          </div>
+          <span class="ppe-chevron">▾</span>
+        </div>
+        <div class="ppe-card-body">
+          <p class="ppe-desc">Décris ici ton projet PPE : contexte, problématique, solution mise en place, résultats obtenus. Remplace ce texte par la vraie description de ton projet.</p>
+          <div class="ppe-tech-row">
+            <span class="ppe-tech">Technologie 1</span><span class="ppe-tech">Technologie 2</span><span class="ppe-tech">Technologie 3</span>
+          </div>
+          <div class="ppe-actions">
+            <a href="#" class="btn-doc btn-doc-primary">📄 Voir le rapport</a>
+            <a href="#" class="btn-doc btn-doc-outline">⬇️ Télécharger PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="ppe-card" id="ppe2">
+        <div class="ppe-card-header" onclick="togglePpe('ppe2')">
+          <div class="ppe-card-left">
+            <span class="ppe-num-badge">PPE 02</span>
+            <div>
+              <div class="ppe-card-title">À compléter — Ton 2ème projet PPE</div>
+              <div class="ppe-card-meta">Lycée Gaston Berger · 2025-2026</div>
+            </div>
+          </div>
+          <span class="ppe-chevron">▾</span>
+        </div>
+        <div class="ppe-card-body">
+          <p class="ppe-desc">Décris ici ton projet PPE : contexte, problématique, solution mise en place, résultats obtenus. Remplace ce texte par la vraie description de ton projet.</p>
+          <div class="ppe-tech-row">
+            <span class="ppe-tech">Technologie 1</span><span class="ppe-tech">Technologie 2</span>
+          </div>
+          <div class="ppe-actions">
+            <a href="#" class="btn-doc btn-doc-primary">📄 Voir le rapport</a>
+            <a href="#" class="btn-doc btn-doc-outline">⬇️ Télécharger PDF</a>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.5rem;">
+        <div class="ppe-section-title">Documents E5</div>
+        <div class="ppe-card" id="doc-tcs">
+          <div class="ppe-card-header" onclick="togglePpe('doc-tcs')">
+            <div class="ppe-card-left">
+              <span class="ppe-num-badge">TCS</span>
+              <div>
+                <div class="ppe-card-title">Tableau de Compétences de Synthèse</div>
+                <div class="ppe-card-meta">Référentiel BTS SIO SISR</div>
+              </div>
+            </div>
+            <span class="ppe-chevron">▾</span>
+          </div>
+          <div class="ppe-card-body">
+            <p class="ppe-desc">Le tableau de synthèse des compétences recense toutes les compétences du référentiel BTS SIO SISR que j'ai pu mobiliser au cours de ma formation et de mes stages.</p>
+            <div class="ppe-actions">
+              <a href="#" class="btn-doc btn-doc-primary">📄 Voir le tableau</a>
+              <a href="#" class="btn-doc btn-doc-outline">⬇️ Télécharger PDF</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANNEAU TP -->
+    <div id="panel-tp" class="proj-panel">
+      <div class="ppe-section-title">Travaux Pratiques & Procédures Techniques</div>
+      <div class="tp-list">
+
+        <div class="tp-item" id="tp-ad">
+          <div class="tp-header" onclick="toggleTp('tp-ad')">
+            <div class="tp-icon">🖥️</div>
+            <span class="tp-name">Installation et configuration Active Directory</span>
+            <span class="tp-tag">Systèmes</span>
+            <span class="tp-arrow">▾</span>
+          </div>
+          <div class="tp-body">
+            <p class="tp-body-desc">Installation d'un contrôleur de domaine Windows Server, création d'une arborescence Active Directory, gestion des UO (Unités d'Organisation), création et gestion des comptes utilisateurs et groupes.</p>
+            <div class="tp-body-tech"><span class="ppe-tech">Windows Server</span><span class="ppe-tech">Active Directory</span><span class="ppe-tech">DNS</span></div>
+            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          </div>
+        </div>
+
+        <div class="tp-item" id="tp-gpo">
+          <div class="tp-header" onclick="toggleTp('tp-gpo')">
+            <div class="tp-icon">⚙️</div>
+            <span class="tp-name">Création et gestion des GPO</span>
+            <span class="tp-tag">Systèmes</span>
+            <span class="tp-arrow">▾</span>
+          </div>
+          <div class="tp-body">
+            <p class="tp-body-desc">Création de stratégies de groupe (Group Policy Objects) pour la configuration centralisée des postes Windows : restrictions d'accès, déploiement logiciels, personnalisation du bureau et sécurité des mots de passe.</p>
+            <div class="tp-body-tech"><span class="ppe-tech">GPO</span><span class="ppe-tech">Active Directory</span><span class="ppe-tech">Windows Server</span></div>
+            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          </div>
+        </div>
+
+        <div class="tp-item" id="tp-vlan">
+          <div class="tp-header" onclick="toggleTp('tp-vlan')">
+            <div class="tp-icon">🌐</div>
+            <span class="tp-name">Configuration VLAN sur switch</span>
+            <span class="tp-tag">Réseau</span>
+            <span class="tp-arrow">▾</span>
+          </div>
+          <div class="tp-body">
+            <p class="tp-body-desc">Mise en place de VLANs (Virtual Local Area Networks) pour segmenter le réseau d'entreprise. Configuration des ports trunk et access, gestion de l'inter-VLAN routing sur routeur et switch layer 3.</p>
+            <div class="tp-body-tech"><span class="ppe-tech">VLAN</span><span class="ppe-tech">Switch</span><span class="ppe-tech">Routeur</span><span class="ppe-tech">Cisco</span></div>
+            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          </div>
+        </div>
+
+        <div class="tp-item" id="tp-dhcp">
+          <div class="tp-header" onclick="toggleTp('tp-dhcp')">
+            <div class="tp-icon">📡</div>
+            <span class="tp-name">Configuration d'un serveur DHCP</span>
+            <span class="tp-tag">Réseau</span>
+            <span class="tp-arrow">▾</span>
+          </div>
+          <div class="tp-body">
+            <p class="tp-body-desc">Installation et configuration d'un serveur DHCP sous Windows Server : création d'étendues, réservations d'adresses IP, options DHCP (passerelle, DNS), gestion des baux et supervision.</p>
+            <div class="tp-body-tech"><span class="ppe-tech">DHCP</span><span class="ppe-tech">Windows Server</span><span class="ppe-tech">TCP/IP</span></div>
+            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          </div>
+        </div>
+
+        <div class="tp-item" id="tp-dns">
+          <div class="tp-header" onclick="toggleTp('tp-dns')">
+            <div class="tp-icon">🔗</div>
+            <span class="tp-name">Configuration d'un serveur DNS</span>
+            <span class="tp-tag">Réseau</span>
+            <span class="tp-arrow">▾</span>
+          </div>
+          <div class="tp-body">
+            <p class="tp-body-desc">Mise en place d'un serveur DNS sous Windows Server : création de zones de recherche directe et inverse, enregistrements A, CNAME, MX, NS. Intégration avec l'Active Directory.</p>
+            <div class="tp-body-tech"><span class="ppe-tech">DNS</span><span class="ppe-tech">Windows Server</span><span class="ppe-tech">Active Directory</span></div>
+            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          </div>
+        </div>
+
+        <div class="tp-item" id="tp-virt">
+          <div class="tp-header" onclick="toggleTp('tp-virt')">
+            <div class="tp-icon">💻</div>
+            <span class="tp-name">Virtualisation avec VirtualBox</span>
+            <span class="tp-tag">Infrastructure</span>
+            <span class="tp-arrow">▾</span>
+          </div>
+          <div class="tp-body">
+            <p class="tp-body-desc">Création et gestion de machines virtuelles sous VirtualBox. Configuration des réseaux virtuels (NAT, bridge, réseau interne), snapshots, clonage et gestion des ressources.</p>
+            <div class="tp-body-tech"><span class="ppe-tech">VirtualBox</span><span class="ppe-tech">Windows Server</span><span class="ppe-tech">Debian</span></div>
+            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          </div>
+        </div>
+
+        <div class="tp-item" id="tp-master">
+          <div class="tp-header" onclick="toggleTp('tp-master')">
+            <div class="tp-icon">🖨️</div>
+            <span class="tp-name">Masterisation de postes de travail</span>
+            <span class="tp-tag">Déploiement</span>
+            <span class="tp-arrow">▾</span>
+          </div>
+          <div class="tp-body">
+            <p class="tp-body-desc">Création et déploiement d'une image maître (master) Windows pour la standardisation du parc informatique. Procédure réalisée et mise en pratique lors du stage à l'hôpital Saint-Philibert.</p>
+            <div class="tp-body-tech"><span class="ppe-tech">MDT</span><span class="ppe-tech">Windows 10/11</span><span class="ppe-tech">Sysprep</span></div>
+            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          </div>
+        </div>
+
+        <div class="tp-item" id="tp-secu">
+          <div class="tp-header" onclick="toggleTp('tp-secu')">
+            <div class="tp-icon">🔐</div>
+            <span class="tp-name">Introduction à la cybersécurité — Zero Trust</span>
+            <span class="tp-tag">Sécurité</span>
+            <span class="tp-arrow">▾</span>
+          </div>
+          <div class="tp-body">
+            <p class="tp-body-desc">Étude et analyse du modèle de sécurité Zero Trust : principes fondamentaux, mise en œuvre de l'authentification forte (MFA), gestion des accès par moindre privilège, microsegmentation réseau.</p>
+            <div class="tp-body-tech"><span class="ppe-tech">Zero Trust</span><span class="ppe-tech">MFA</span><span class="ppe-tech">IAM</span><span class="ppe-tech">Cybersécurité</span></div>
+            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VEILLE -->
+<section id="veille">
+  <div class="section-inner">
+    <div class="section-label">Veille technologique</div>
+    <h2 class="section-title">Zero Trust</h2>
+    <p class="section-desc">Suivi des évolutions du modèle Zero Trust depuis novembre 2024.</p>
+    <div class="veille-intro fade-in">
+      <div><span class="vi-label">Sujet</span><span class="vi-value">Modèle Zero Trust</span></div>
+      <div><span class="vi-label">Période</span><span class="vi-value">Nov. 2024 → Mars 2026</span></div>
+      <div><span class="vi-label">Outils</span><span class="vi-value">Google Alerts · Feedly · ANSSI · LinkedIn</span></div>
+    </div>
+    <div class="vtimeline">
+      <div class="vtl-item fade-in"><div class="vtl-dot"></div>
+        <div class="vtl-card">
+          <div class="vtl-month">Novembre 2024</div>
+          <div class="vtl-title">78 % des entreprises prévoient d'adopter le Zero Trust</div>
+          <div class="vtl-source">📄 <a href="https://www.zscaler.com/fr/press/vpn-risk-report-finds-more-half-organizations-experienced-vpn-related-cyberattack-last-year" target="_blank">Zscaler — ThreatLabz VPN Risk Report 2024</a></div>
+          <div class="vtl-desc">56 % des entreprises ont été victimes de cyberattaques via leurs VPN. Face à ces constats, 78 % déclarent vouloir déployer une architecture Zero Trust dans les 12 mois. Principales menaces : ransomwares (42 %), malwares (35 %), DDoS (30 %).</div>
+          <div class="vtl-impact">Impact fort sur l'infrastructure réseau</div>
+          <a href="https://www.zscaler.com/fr/press/vpn-risk-report-finds-more-half-organizations-experienced-vpn-related-cyberattack-last-year" target="_blank" class="vtl-link">Lire →</a>
+          <div style="clear:both"></div>
+        </div>
+      </div>
+      <div class="vtl-item fade-in"><div class="vtl-dot"></div>
+        <div class="vtl-card">
+          <div class="vtl-month">Décembre 2024</div>
+          <div class="vtl-title">Le Zero Trust doit prouver son efficacité en production</div>
+          <div class="vtl-source">📄 <a href="https://fr.blog.barracuda.com/2024/01/02/zero-trust-needs-to-be-proven-in-2024" target="_blank">Barracuda Networks Blog — Mike Vizard</a></div>
+          <div class="vtl-desc">61 % des organisations ont lancé une initiative Zero Trust mais peu ont atteint un niveau de maturité suffisant. Son déploiement implique IAM, MFA et microsegmentation — pas de solution clé en main.</div>
+          <div class="vtl-impact">Complexité d'implémentation</div>
+          <a href="https://fr.blog.barracuda.com/2024/01/02/zero-trust-needs-to-be-proven-in-2024" target="_blank" class="vtl-link">Lire →</a>
+          <div style="clear:both"></div>
+        </div>
+      </div>
+      <div class="vtl-item fade-in"><div class="vtl-dot"></div>
+        <div class="vtl-card">
+          <div class="vtl-month">Janvier 2025</div>
+          <div class="vtl-title">Le réseau interne, angle mort du Zero Trust</div>
+          <div class="vtl-source">📄 <a href="https://www.cyberexperts.tech/le-reseau-interne-angle-mort-du-zero-trust/" target="_blank">CyberExperts.tech</a></div>
+          <div class="vtl-desc">Beaucoup d'entreprises appliquent le Zero Trust aux accès externes mais conservent une confiance implicite en interne. La microsegmentation et la gestion stricte des identités sont indispensables partout.</div>
+          <div class="vtl-impact">Segmentation réseau interne</div>
+          <a href="https://www.cyberexperts.tech/le-reseau-interne-angle-mort-du-zero-trust/" target="_blank" class="vtl-link">Lire →</a>
+          <div style="clear:both"></div>
+        </div>
+      </div>
+      <div class="vtl-item fade-in"><div class="vtl-dot"></div>
+        <div class="vtl-card">
+          <div class="vtl-month">Février 2025</div>
+          <div class="vtl-title">Zero Trust : protéger les données, pas seulement le réseau</div>
+          <div class="vtl-source">📄 <a href="https://www.kiteworks.com/fr/gestion-des-risques-lies-a-la-cybersecurite/zero-trust-architecture-aller-au-dela-securite-reseau/" target="_blank">Kiteworks — Patrick Spencer</a></div>
+          <div class="vtl-desc">Avec le télétravail et le cloud, le périmètre réseau a disparu. Le Zero Trust doit couvrir chaque couche : identité, appareils, applications et données, via vérification continue et moindre privilège.</div>
+          <div class="vtl-impact">Protection des données et identités</div>
+          <a href="https://www.kiteworks.com/fr/gestion-des-risques-lies-a-la-cybersecurite/zero-trust-architecture-aller-au-dela-securite-reseau/" target="_blank" class="vtl-link">Lire →</a>
+          <div style="clear:both"></div>
+        </div>
+      </div>
+      <div class="vtl-item fade-in"><div class="vtl-dot"></div>
+        <div class="vtl-card">
+          <div class="vtl-month">Mars 2025</div>
+          <div class="vtl-title">+29 % de fuites de données en France — l'urgence du Zero Trust</div>
+          <div class="vtl-source">📄 <a href="https://www.hexatrust.com/barometre-des-fuites-de-donnees-2024-lurgence-du-zero-trust/" target="_blank">Hexatrust / Forum InCyber / CNIL</a></div>
+          <div class="vtl-desc">En 2024, la CNIL a reçu 5 919 notifications de fuites (+29 % vs 2023), soit 16 par jour. Les incidents malveillants progressent de 25 %. Le Zero Trust est préconisé comme réponse structurelle.</div>
+          <div class="vtl-impact">Données officielles CNIL</div>
+          <a href="https://www.hexatrust.com/barometre-des-fuites-de-donnees-2024-lurgence-du-zero-trust/" target="_blank" class="vtl-link">Lire →</a>
+          <div style="clear:both"></div>
+        </div>
+      </div>
+      <div class="vtl-item fade-in"><div class="vtl-dot"></div>
+        <div class="vtl-card">
+          <div class="vtl-month">Avril 2025</div>
+          <div class="vtl-title">Les 5 étapes clés pour déployer le Zero Trust</div>
+          <div class="vtl-source">📄 <a href="https://www.solutions-numeriques.com/avis-dexpert-strategie-zero-trust-les-cinq-etapes-cles/" target="_blank">Solutions Numériques — Laurent Gelu (Kyndryl)</a></div>
+          <div class="vtl-desc">L'ANSSI recense +15 % d'incidents en 2024. Feuille de route en 5 étapes : identifier les actifs critiques, cartographier les accès, déployer le MFA, instaurer le moindre privilège, surveiller en continu.</div>
+          <div class="vtl-impact">Méthodologie pratique</div>
+          <a href="https://www.solutions-numeriques.com/avis-dexpert-strategie-zero-trust-les-cinq-etapes-cles/" target="_blank" class="vtl-link">Lire →</a>
+          <div style="clear:both"></div>
+        </div>
+      </div>
+      <div class="vtl-item fade-in"><div class="vtl-dot"></div>
+        <div class="vtl-card">
+          <div class="vtl-month">Juin 2025</div>
+          <div class="vtl-title">L'ANSSI publie un guide officiel sur les fondamentaux du Zero Trust</div>
+          <div class="vtl-source">📄 <a href="https://messervices.cyber.gouv.fr/documents-guides/anssi-fondamentaux-zero-trust-v1.0.pdf" target="_blank">ANSSI — Guide ANSSI-PA-111</a></div>
+          <div class="vtl-desc">Première publication officielle française sur le Zero Trust. Le guide détaille 5 mécanismes : assurance de l'identité, intégrité des équipements, protection des réseaux et données, détection comportementale.</div>
+          <div class="vtl-impact">Source officielle ANSSI</div>
+          <a href="https://messervices.cyber.gouv.fr/documents-guides/anssi-fondamentaux-zero-trust-v1.0.pdf" target="_blank" class="vtl-link">Lire →</a>
+          <div style="clear:both"></div>
+        </div>
+      </div>
+      <div class="vtl-item fade-in"><div class="vtl-dot"></div>
+        <div class="vtl-card">
+          <div class="vtl-month">Mars 2026</div>
+          <div class="vtl-title">Zero Trust dans l'industrie : un impératif stratégique</div>
+          <div class="vtl-source">📄 <a href="https://www.cyberexperts.tech/zero-trust-dans-lindustrie-un-imperatif-pas-une-option/" target="_blank">CyberExperts.tech — Ramses Gallego (DXC Technology)</a></div>
+          <div class="vtl-desc">L'industrie représente 29 % des attaques ransomware mondiales. Le Zero Trust s'impose dans les environnements OT/IT. Conclusion : l'identité est le nouveau périmètre, chaque machine doit être vérifiée en permanence.</div>
+          <div class="vtl-impact">Extension aux systèmes industriels</div>
+          <a href="https://www.cyberexperts.tech/zero-trust-dans-lindustrie-un-imperatif-pas-une-option/" target="_blank" class="vtl-link">Lire →</a>
+          <div style="clear:both"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPÉTENCES -->
+<section id="competences">
+  <div class="section-inner">
+    <div class="section-label">Référentiel BTS SIO SISR</div>
+    <h2 class="section-title">Compétences</h2>
+    <p class="section-desc">Compétences acquises et validées en formation et en stage.</p>
+    <div class="comp-grid fade-in">
+      <div class="comp-category">
+        <div class="comp-cat-header"><span style="font-size:16px">🌐</span><span class="comp-cat-title">Réseau & Infrastructure</span></div>
+        <div class="comp-items">
+          <div class="comp-item"><span class="comp-name">Administration réseau</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:75%"></div></div><span class="comp-level">Maîtrisé</span></div>
+          <div class="comp-item"><span class="comp-name">Virtualisation</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:65%"></div></div><span class="comp-level">Maîtrisé</span></div>
+          <div class="comp-item"><span class="comp-name">Routage / Switching</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:60%"></div></div><span class="comp-level">En cours</span></div>
+          <div class="comp-item"><span class="comp-name">VLAN</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:55%"></div></div><span class="comp-level">En cours</span></div>
+        </div>
+      </div>
+      <div class="comp-category">
+        <div class="comp-cat-header"><span style="font-size:16px">🔐</span><span class="comp-cat-title">Systèmes & Sécurité</span></div>
+        <div class="comp-items">
+          <div class="comp-item"><span class="comp-name">Active Directory</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:80%"></div></div><span class="comp-level">Maîtrisé</span></div>
+          <div class="comp-item"><span class="comp-name">Windows Server</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:75%"></div></div><span class="comp-level">Maîtrisé</span></div>
+          <div class="comp-item"><span class="comp-name">GPO</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:65%"></div></div><span class="comp-level">Maîtrisé</span></div>
+          <div class="comp-item"><span class="comp-name">Cybersécurité</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:50%"></div></div><span class="comp-level">En cours</span></div>
+        </div>
+      </div>
+      <div class="comp-category">
+        <div class="comp-cat-header"><span style="font-size:16px">🛠️</span><span class="comp-cat-title">Déploiement & Support</span></div>
+        <div class="comp-items">
+          <div class="comp-item"><span class="comp-name">Masterisation postes</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:80%"></div></div><span class="comp-level">Maîtrisé</span></div>
+          <div class="comp-item"><span class="comp-name">Support utilisateur</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:75%"></div></div><span class="comp-level">Maîtrisé</span></div>
+          <div class="comp-item"><span class="comp-name">Diagnostic</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:70%"></div></div><span class="comp-level">Maîtrisé</span></div>
+          <div class="comp-item"><span class="comp-name">Messagerie Exchange</span><div class="comp-bar-wrap"><div class="comp-bar" style="width:65%"></div></div><span class="comp-level">Maîtrisé</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Me contacter</div>
+    <h2 class="section-title">Contact</h2>
+    <p class="section-desc">N'hésitez pas à me contacter pour toute question ou opportunité.</p>
+    <div class="contact-wrap fade-in">
+      <div>
+        <p class="contact-text">Étudiant en 2ème année de BTS SIO SISR au lycée Gaston Berger, je suis ouvert aux échanges sur les thématiques réseau et cybersécurité.</p>
+        <div class="contact-links">
+          <a class="contact-link-item" href="mailto:votre.email@exemple.com">
+            <div class="cli-icon">✉️</div>
+            <div><div class="cli-label">Email</div><div class="cli-value">votre.email@exemple.com</div></div>
+          </a>
+          <a class="contact-link-item" href="https://linkedin.com" target="_blank">
+            <div class="cli-icon">💼</div>
+            <div><div class="cli-label">LinkedIn</div><div class="cli-value">Simon Cazé</div></div>
+          </a>
+          <a class="contact-link-item" href="#">
+            <div class="cli-icon">📄</div>
+            <div><div class="cli-label">CV</div><div class="cli-value">Télécharger mon CV</div></div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-form-card">
+        <div class="form-group"><label class="form-label">Nom</label><input type="text" class="form-input" placeholder="Votre nom"></div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="votre@email.com"></div>
+        <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Votre message..."></textarea></div>
+        <button class="btn-primary" style="width:100%;justify-content:center;">Envoyer le message</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Portfolio de <span>Simon Cazé</span> — BTS SIO SISR — Lycée Gaston Berger — 2025/2026</p>
+</footer>
+
+<script>
+  // Onglets projets
+  function switchTab(tab, el) {
+    document.querySelectorAll('.proj-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.proj-panel').forEach(p => p.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('panel-' + tab).classList.add('active');
+  }
+
+  // Accordéon PPE
+  function togglePpe(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+
+  // Accordéon TP
+  function toggleTp(id) {
+    const item = document.getElementById(id);
+    item.classList.toggle('open');
+  }
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
