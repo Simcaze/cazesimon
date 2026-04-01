@@ -202,6 +202,29 @@
   .tp-body-actions { display: flex; gap: 0.6rem; }
 
   /* ══════════════════════════════════
+     PROCÉDURES — GRILLE CARDS VISUELLES
+  ══════════════════════════════════ */
+  .proc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+  .proc-card { background: var(--gray-900); border: 1px solid var(--gray-600); border-radius: 14px; overflow: hidden; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+  .proc-card:hover { border-color: rgba(204,109,61,0.4); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.35); }
+  .proc-img-wrap { position: relative; height: 160px; overflow: hidden; background: var(--gray-700); }
+  .proc-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+  .proc-img-contain { object-fit: contain; padding: 1rem; }
+  .proc-card:hover .proc-img { transform: scale(1.04); }
+  .proc-badge { position: absolute; top: 10px; left: 10px; font-size: 0.68rem; font-weight: 700; padding: 3px 10px; border-radius: 99px; letter-spacing: 0.05em; }
+  .proc-done { background: #16a34a; color: #fff; }
+  .proc-inprogress { background: #d97706; color: #fff; }
+  .proc-body { padding: 1.1rem 1.25rem; display: flex; flex-direction: column; gap: 0.5rem; flex: 1; }
+  .proc-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--white); }
+  .proc-year { font-size: 0.75rem; color: var(--gray-300); }
+  .proc-desc { font-size: 0.82rem; color: var(--gray-300); line-height: 1.6; flex: 1; }
+  .proc-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.25rem; }
+  .proc-tag { font-size: 0.68rem; font-weight: 500; padding: 2px 8px; border-radius: 4px; background: rgba(163,180,200,0.1); border: 1px solid rgba(163,180,200,0.2); color: var(--ocean-light); }
+  .proc-actions { display: flex; gap: 0.6rem; margin-top: 0.5rem; }
+  .btn-proc-voir { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 500; padding: 0.5rem 1.1rem; border-radius: 7px; background: transparent; color: var(--gray-200); border: 1px solid var(--gray-600); cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .btn-proc-voir:hover { border-color: var(--accent); color: var(--accent); background: rgba(204,109,61,0.08); }
+
+  /* ══════════════════════════════════
      VEILLE
   ══════════════════════════════════ */
   #veille { }
@@ -314,7 +337,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#accueil" class="nav-logo">Simon<span>.</span>Cazé</a>
+  <a href="#accueil" class="nav-logo">Simon<span>.</span>dev</a>
   <ul class="nav-links">
     <li><a href="#accueil">Accueil</a></li>
     <li>
@@ -573,6 +596,38 @@
         </div>
       </div>
 
+      <div style="margin-top:2rem;">
+        <div class="ppe-section-title">📋 Rapport de Synthèse de Stage</div>
+        <div class="ppe-card" id="rapport-synthese" style="border-left: 3px solid var(--accent); background: linear-gradient(135deg, var(--gray-900) 0%, rgba(204,109,61,0.04) 100%);">
+          <div class="ppe-card-header" onclick="togglePpe('rapport-synthese')">
+            <div class="ppe-card-left">
+              <span class="ppe-num-badge" style="background:rgba(204,109,61,0.2); border-color:var(--accent);">STAGE</span>
+              <div>
+                <div class="ppe-card-title">Rapport de Synthèse — Stage 1 &amp; 2</div>
+                <div class="ppe-card-meta">Hôpital Saint-Philibert · 2024 &amp; 2025 — Deux périodes, même entreprise</div>
+              </div>
+            </div>
+            <span class="ppe-chevron">▾</span>
+          </div>
+          <div class="ppe-card-body">
+            <div style="background: rgba(204,109,61,0.07); border: 1px solid rgba(204,109,61,0.2); border-radius: 8px; padding: 0.85rem 1.1rem; margin-bottom: 1rem; font-size: 0.82rem; color: #e8956a;">
+              ℹ️ Mes deux stages ayant été effectués au même endroit, ce rapport constitue un document de synthèse commun couvrant l'ensemble de mes deux périodes en entreprise.
+            </div>
+            <p class="ppe-desc">Rapport de synthèse retraçant les deux périodes de stage effectuées à l'Hôpital Saint-Philibert (GHICL). Ce document présente l'environnement professionnel, les missions réalisées (masterisation, Active Directory, intégration réseau), les compétences mobilisées et le bilan global des deux années de formation en alternance.</p>
+            <div class="ppe-tech-row">
+              <span class="ppe-tech">Stage 1 — 2024</span>
+              <span class="ppe-tech">Stage 2 — 2025</span>
+              <span class="ppe-tech">Active Directory</span>
+              <span class="ppe-tech">Masterisation</span>
+              <span class="ppe-tech">Infrastructure réseau</span>
+            </div>
+            <div class="ppe-actions">
+              <a href="#" class="btn-doc btn-doc-primary">📄 Voir le rapport</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div style="margin-top:1.5rem;">
         <div class="ppe-section-title">Documents E5</div>
         <div class="ppe-card" id="doc-tcs">
@@ -599,118 +654,102 @@
 
     <!-- PANNEAU TP -->
     <div id="panel-tp" class="proj-panel">
-      <div class="ppe-section-title">Travaux Pratiques & Procédures Techniques</div>
-      <div class="tp-list">
+      <div class="ppe-section-title">Procédures Techniques</div>
+      <div class="proc-grid">
 
-        <div class="tp-item" id="tp-ad">
-          <div class="tp-header" onclick="toggleTp('tp-ad')">
-            <div class="tp-icon">🖥️</div>
-            <span class="tp-name">Installation et configuration Active Directory</span>
-            <span class="tp-tag">Systèmes</span>
-            <span class="tp-arrow">▾</span>
+        <div class="proc-card">
+          <div class="proc-img-wrap">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Cisco_switch_and_patchpanel.jpg/640px-Cisco_switch_and_patchpanel.jpg" alt="VLAN Interco" class="proc-img">
+            <span class="proc-badge proc-done">Terminé</span>
           </div>
-          <div class="tp-body">
-            <p class="tp-body-desc">Installation d'un contrôleur de domaine Windows Server, création d'une arborescence Active Directory, gestion des UO (Unités d'Organisation), création et gestion des comptes utilisateurs et groupes.</p>
-            <div class="tp-body-tech"><span class="ppe-tech">Windows Server</span><span class="ppe-tech">Active Directory</span><span class="ppe-tech">DNS</span></div>
-            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          <div class="proc-body">
+            <div class="proc-title">Procédure VLAN Interco</div>
+            <div class="proc-year">📅 2025</div>
+            <div class="proc-desc">Procédure détaillée pour la création de VLAN sur Switch et Routeur. Configuration de l'interconnexion entre différents réseaux virtuels avec gestion des politiques de routage.</div>
+            <div class="proc-tags"><span class="proc-tag">VLAN</span><span class="proc-tag">Switch</span><span class="proc-tag">Routeur</span><span class="proc-tag">Cisco</span><span class="proc-tag">Networking</span></div>
+            <div class="proc-actions">
+              <button class="btn-proc-voir" onclick="openPdfViewer('VLAN Interco', 'vlan.pdf')">👁 Voir</button>
+            </div>
           </div>
         </div>
 
-        <div class="tp-item" id="tp-gpo">
-          <div class="tp-header" onclick="toggleTp('tp-gpo')">
-            <div class="tp-icon">⚙️</div>
-            <span class="tp-name">Création et gestion des GPO</span>
-            <span class="tp-tag">Systèmes</span>
-            <span class="tp-arrow">▾</span>
+        <div class="proc-card">
+          <div class="proc-img-wrap">
+            <img src="https://assets.zabbix.com/img/logo/zabbix_logo_500x131.png" alt="ZABBIX" class="proc-img proc-img-contain" style="background:#d40000;">
+            <span class="proc-badge proc-done">Terminé</span>
           </div>
-          <div class="tp-body">
-            <p class="tp-body-desc">Création de stratégies de groupe (Group Policy Objects) pour la configuration centralisée des postes Windows : restrictions d'accès, déploiement logiciels, personnalisation du bureau et sécurité des mots de passe.</p>
-            <div class="tp-body-tech"><span class="ppe-tech">GPO</span><span class="ppe-tech">Active Directory</span><span class="ppe-tech">Windows Server</span></div>
-            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
-          </div>
-        </div>
-
-        <div class="tp-item" id="tp-vlan">
-          <div class="tp-header" onclick="toggleTp('tp-vlan')">
-            <div class="tp-icon">🌐</div>
-            <span class="tp-name">Configuration VLAN sur switch</span>
-            <span class="tp-tag">Réseau</span>
-            <span class="tp-arrow">▾</span>
-          </div>
-          <div class="tp-body">
-            <p class="tp-body-desc">Mise en place de VLANs (Virtual Local Area Networks) pour segmenter le réseau d'entreprise. Configuration des ports trunk et access, gestion de l'inter-VLAN routing sur routeur et switch layer 3.</p>
-            <div class="tp-body-tech"><span class="ppe-tech">VLAN</span><span class="ppe-tech">Switch</span><span class="ppe-tech">Routeur</span><span class="ppe-tech">Cisco</span></div>
-            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          <div class="proc-body">
+            <div class="proc-title">Procédure ZABBIX 7.4</div>
+            <div class="proc-year">📅 2025</div>
+            <div class="proc-desc">Procédure complète d'installation et de configuration de ZABBIX 7.4 sur Debian pour la supervision et monitoring des infrastructures réseau et serveurs.</div>
+            <div class="proc-tags"><span class="proc-tag">ZABBIX 7.4</span><span class="proc-tag">Debian</span><span class="proc-tag">Monitoring</span><span class="proc-tag">SNMP</span><span class="proc-tag">MySQL</span></div>
+            <div class="proc-actions">
+              <button class="btn-proc-voir" onclick="openPdfViewer('Procédure ZABBIX 7.4', 'Zabbix.pdf')">👁 Voir</button>
+            </div>
           </div>
         </div>
 
-        <div class="tp-item" id="tp-dhcp">
-          <div class="tp-header" onclick="toggleTp('tp-dhcp')">
-            <div class="tp-icon">📡</div>
-            <span class="tp-name">Configuration d'un serveur DHCP</span>
-            <span class="tp-tag">Réseau</span>
-            <span class="tp-arrow">▾</span>
+        <div class="proc-card">
+          <div class="proc-img-wrap">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Active_Directory.png/640px-Active_Directory.png" alt="Active Directory" class="proc-img proc-img-contain" style="background:#003566;">
+            <span class="proc-badge proc-done">Terminé</span>
           </div>
-          <div class="tp-body">
-            <p class="tp-body-desc">Installation et configuration d'un serveur DHCP sous Windows Server : création d'étendues, réservations d'adresses IP, options DHCP (passerelle, DNS), gestion des baux et supervision.</p>
-            <div class="tp-body-tech"><span class="ppe-tech">DHCP</span><span class="ppe-tech">Windows Server</span><span class="ppe-tech">TCP/IP</span></div>
-            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
-          </div>
-        </div>
-
-        <div class="tp-item" id="tp-dns">
-          <div class="tp-header" onclick="toggleTp('tp-dns')">
-            <div class="tp-icon">🔗</div>
-            <span class="tp-name">Configuration d'un serveur DNS</span>
-            <span class="tp-tag">Réseau</span>
-            <span class="tp-arrow">▾</span>
-          </div>
-          <div class="tp-body">
-            <p class="tp-body-desc">Mise en place d'un serveur DNS sous Windows Server : création de zones de recherche directe et inverse, enregistrements A, CNAME, MX, NS. Intégration avec l'Active Directory.</p>
-            <div class="tp-body-tech"><span class="ppe-tech">DNS</span><span class="ppe-tech">Windows Server</span><span class="ppe-tech">Active Directory</span></div>
-            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          <div class="proc-body">
+            <div class="proc-title">Procédure Active Directory</div>
+            <div class="proc-year">📅 2025</div>
+            <div class="proc-desc">Procédure détaillée d'installation et de configuration de l'Active Directory avec gestion des utilisateurs, groupes et GPO (Group Policy Objects).</div>
+            <div class="proc-tags"><span class="proc-tag">Active Directory</span><span class="proc-tag">Windows Server</span><span class="proc-tag">GPO</span><span class="proc-tag">Users</span><span class="proc-tag">Groups</span></div>
+            <div class="proc-actions">
+              <button class="btn-proc-voir" onclick="openPdfViewer('Procédure Active Directory', 'ad.pdf')">👁 Voir</button>
+            </div>
           </div>
         </div>
 
-        <div class="tp-item" id="tp-virt">
-          <div class="tp-header" onclick="toggleTp('tp-virt')">
-            <div class="tp-icon">💻</div>
-            <span class="tp-name">Virtualisation avec VirtualBox</span>
-            <span class="tp-tag">Infrastructure</span>
-            <span class="tp-arrow">▾</span>
+        <div class="proc-card">
+          <div class="proc-img-wrap">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/GLPI_logo.svg/640px-GLPI_logo.svg.png" alt="GLPI" class="proc-img proc-img-contain" style="background:#009FE3;">
+            <span class="proc-badge proc-done">Terminé</span>
           </div>
-          <div class="tp-body">
-            <p class="tp-body-desc">Création et gestion de machines virtuelles sous VirtualBox. Configuration des réseaux virtuels (NAT, bridge, réseau interne), snapshots, clonage et gestion des ressources.</p>
-            <div class="tp-body-tech"><span class="ppe-tech">VirtualBox</span><span class="ppe-tech">Windows Server</span><span class="ppe-tech">Debian</span></div>
-            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
-          </div>
-        </div>
-
-        <div class="tp-item" id="tp-master">
-          <div class="tp-header" onclick="toggleTp('tp-master')">
-            <div class="tp-icon">🖨️</div>
-            <span class="tp-name">Masterisation de postes de travail</span>
-            <span class="tp-tag">Déploiement</span>
-            <span class="tp-arrow">▾</span>
-          </div>
-          <div class="tp-body">
-            <p class="tp-body-desc">Création et déploiement d'une image maître (master) Windows pour la standardisation du parc informatique. Procédure réalisée et mise en pratique lors du stage à l'hôpital Saint-Philibert.</p>
-            <div class="tp-body-tech"><span class="ppe-tech">MDT</span><span class="ppe-tech">Windows 10/11</span><span class="ppe-tech">Sysprep</span></div>
-            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          <div class="proc-body">
+            <div class="proc-title">Procédure GLPI V11</div>
+            <div class="proc-year">📅 2025</div>
+            <div class="proc-desc">Procédure complète d'installation et de configuration de GLPI V11 (2025) sur Ubuntu pour la gestion des services informatiques et helpdesk.</div>
+            <div class="proc-tags"><span class="proc-tag">GLPI V11</span><span class="proc-tag">Ubuntu</span><span class="proc-tag">ITSM</span><span class="proc-tag">Helpdesk</span><span class="proc-tag">Apache</span><span class="proc-tag">MySQL</span></div>
+            <div class="proc-actions">
+              <button class="btn-proc-voir" onclick="openPdfViewer('Procédure GLPI V11', 'glpi.pdf')">👁 Voir</button>
+            </div>
           </div>
         </div>
 
-        <div class="tp-item" id="tp-secu">
-          <div class="tp-header" onclick="toggleTp('tp-secu')">
-            <div class="tp-icon">🔐</div>
-            <span class="tp-name">Introduction à la cybersécurité — Zero Trust</span>
-            <span class="tp-tag">Sécurité</span>
-            <span class="tp-arrow">▾</span>
+        <div class="proc-card">
+          <div class="proc-img-wrap">
+            <img src="https://www.proxmox.com/images/proxmox/Proxmox-logo-800.png" alt="Proxmox" class="proc-img proc-img-contain" style="background:#1a1a1a;">
+            <span class="proc-badge proc-done">Terminé</span>
           </div>
-          <div class="tp-body">
-            <p class="tp-body-desc">Étude et analyse du modèle de sécurité Zero Trust : principes fondamentaux, mise en œuvre de l'authentification forte (MFA), gestion des accès par moindre privilège, microsegmentation réseau.</p>
-            <div class="tp-body-tech"><span class="ppe-tech">Zero Trust</span><span class="ppe-tech">MFA</span><span class="ppe-tech">IAM</span><span class="ppe-tech">Cybersécurité</span></div>
-            <div class="tp-body-actions"><a href="#" class="btn-doc btn-doc-primary">📄 Voir le TP</a><a href="#" class="btn-doc btn-doc-outline">⬇️ PDF</a></div>
+          <div class="proc-body">
+            <div class="proc-title">Procédure Proxmox</div>
+            <div class="proc-year">📅 2025</div>
+            <div class="proc-desc">Procédure d'installation et de configuration de Proxmox pour la virtualisation et gestion des machines virtuelles dans un environnement d'entreprise.</div>
+            <div class="proc-tags"><span class="proc-tag">Proxmox</span><span class="proc-tag">Virtualisation</span><span class="proc-tag">KVM</span><span class="proc-tag">LXC</span><span class="proc-tag">Cluster</span></div>
+            <div class="proc-actions">
+              <button class="btn-proc-voir" onclick="openPdfViewer('Procédure Proxmox', 'proxmox.pdf')">👁 Voir</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="proc-card">
+          <div class="proc-img-wrap">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Group_Policy_Object.png/640px-Group_Policy_Object.png" alt="GPO" class="proc-img proc-img-contain" style="background:#f5f5f5;">
+            <span class="proc-badge proc-done">Terminé</span>
+          </div>
+          <div class="proc-body">
+            <div class="proc-title">Procédure GPO</div>
+            <div class="proc-year">📅 2025</div>
+            <div class="proc-desc">Procédure de création et gestion des GPO (Group Policy Objects) pour la configuration centralisée des environnements Windows.</div>
+            <div class="proc-tags"><span class="proc-tag">GPO</span><span class="proc-tag">Active Directory</span><span class="proc-tag">Windows Server</span><span class="proc-tag">Policy</span><span class="proc-tag">Configuration</span></div>
+            <div class="proc-actions">
+              <button class="btn-proc-voir" onclick="openPdfViewer('Procédure GPO', 'gpo.pdf')">👁 Voir</button>
+            </div>
           </div>
         </div>
 
@@ -718,6 +757,20 @@
     </div>
   </div>
 </section>
+
+<!-- MODAL PDF VIEWER -->
+<div id="pdf-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); align-items:center; justify-content:center;">
+  <div style="background:var(--gray-800); border:1px solid rgba(163,180,200,0.2); border-radius:16px; width:90vw; max-width:960px; height:90vh; display:flex; flex-direction:column; overflow:hidden; box-shadow:0 32px 80px rgba(0,0,0,0.6);">
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:1rem 1.5rem; border-bottom:1px solid rgba(163,180,200,0.15); flex-shrink:0;">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span style="font-size:18px;">📄</span>
+        <span id="pdf-modal-title" style="font-family:'Syne',sans-serif; font-weight:700; color:var(--white); font-size:1rem;"></span>
+      </div>
+      <button onclick="closePdfViewer()" style="background:rgba(204,109,61,0.15); border:1px solid rgba(204,109,61,0.3); color:var(--accent); border-radius:8px; padding:0.4rem 1rem; cursor:pointer; font-size:0.85rem; font-weight:500; transition:all 0.2s;" onmouseover="this.style.background='rgba(204,109,61,0.3)'" onmouseout="this.style.background='rgba(204,109,61,0.15)'">✕ Fermer</button>
+    </div>
+    <iframe id="pdf-modal-frame" src="" style="flex:1; width:100%; border:none; background:#fff;"></iframe>
+  </div>
+</div>
 
 <!-- VEILLE -->
 <section id="veille">
@@ -1050,6 +1103,26 @@
 
   // Accordéon TP
   function toggleTp(id) { document.getElementById(id).classList.toggle('open'); }
+
+  // PDF Viewer modal
+  function openPdfViewer(title, pdfFile) {
+    document.getElementById('pdf-modal-title').textContent = title;
+    document.getElementById('pdf-modal-frame').src = pdfFile;
+    const modal = document.getElementById('pdf-modal');
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function closePdfViewer() {
+    document.getElementById('pdf-modal').style.display = 'none';
+    document.getElementById('pdf-modal-frame').src = '';
+    document.body.style.overflow = '';
+  }
+  document.getElementById('pdf-modal').addEventListener('click', function(e) {
+    if (e.target === this) closePdfViewer();
+  });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closePdfViewer();
+  });
 
   // Scroll animations
   const observer = new IntersectionObserver((entries) => {
