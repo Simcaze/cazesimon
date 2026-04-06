@@ -315,8 +315,9 @@
   footer span { color: var(--accent); }
 
   /* ANIMATIONS */
-  .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  .fade-in { opacity: 1; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.will-animate { opacity: 0; transform: translateY(24px); }
+  .fade-in.will-animate.visible { opacity: 1; transform: translateY(0); }
 
   /* RESPONSIVE */
   @media (max-width: 768px) {
@@ -808,23 +809,19 @@
           </div>
           <div class="ppe-card-body">
 
-            <!-- Bandeau intro -->
             <div style="background:rgba(163,180,200,0.08);border:1px solid rgba(163,180,200,0.2);border-radius:8px;padding:0.85rem 1.1rem;margin-bottom:1.5rem;font-size:0.82rem;color:#A3B4C8;">
               🏥 Projet réalisé en équipe dans le cadre du BTS SIO SISR. GastonMediLab est une entreprise fictive de prélèvements médicaux leader en Europe, dont nous devions reconstruire intégralement le système d'information vieillissant.
             </div>
 
-            <!-- Contexte & Objectifs -->
             <div style="margin-bottom:1.5rem;">
-              <div style="font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid var(--gray-600);">📋 Contexte & Objectifs</div>
-              <p class="ppe-desc">GastonMediLab exploite son expertise en médecine de laboratoire, en imagerie et en pathologie à l'échelle européenne. Son système d'information reposait sur un unique hyperviseur hébergeant un Windows Server 2008 R2 obsolète. Les laboratoires échangeaient leurs fichiers via WeTransfer — une méthode non sécurisée et non professionnelle — entraînant des pannes fréquentes, des coûts de maintenance élevés et une atteinte à la réputation de l'entreprise.</p>
-              <p class="ppe-desc" style="margin-top:0.6rem;">L'objectif du projet était de partir de zéro pour concevoir et déployer une <strong style="color:var(--white);">architecture solide, évolutive et sécurisée</strong>, capable de gérer l'ensemble des services critiques d'une organisation classifiée OIV (Opérateur d'Importance Vitale) en France.</p>
+              <div style="font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid var(--gray-600);">📋 Contexte &amp; Objectifs</div>
+              <p class="ppe-desc">GastonMediLab est leader européen en prélèvements médicaux, présent dans plusieurs pays depuis 1987. Son système d'information reposait sur un unique hyperviseur hébergeant un Windows Server 2008 R2 obsolète. Les laboratoires échangeaient leurs fichiers via WeTransfer — méthode non sécurisée — entraînant des pannes fréquentes et des coûts de maintenance élevés.</p>
+              <p class="ppe-desc" style="margin-top:0.6rem;">L'objectif était de partir de zéro pour concevoir et déployer une <strong style="color:var(--white);">architecture solide, évolutive et sécurisée</strong>, répondant aux exigences d'un Opérateur d'Importance Vitale (OIV) français, avec des délais de résultats médicaux stricts (24h / 72h).</p>
             </div>
 
-            <!-- Missions réalisées -->
             <div style="margin-bottom:1.5rem;">
-              <div style="font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid var(--gray-600);">🛠️ Missions & Tâches Réalisées</div>
+              <div style="font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid var(--gray-600);">🛠️ Missions &amp; Tâches Réalisées</div>
               <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;">
-
                 <div style="background:var(--gray-900);border:1px solid var(--gray-600);border-radius:8px;padding:0.9rem 1rem;">
                   <div style="font-size:0.75rem;font-weight:600;color:#A3B4C8;margin-bottom:0.5rem;">Mission 1 — Planification</div>
                   <ul style="font-size:0.78rem;color:var(--gray-300);line-height:1.7;padding-left:1.1rem;">
@@ -836,9 +833,8 @@
                     <li>Présentation en comité de pilotage</li>
                   </ul>
                 </div>
-
                 <div style="background:var(--gray-900);border:1px solid var(--gray-600);border-radius:8px;padding:0.9rem 1rem;">
-                  <div style="font-size:0.75rem;font-weight:600;color:#A3B4C8;margin-bottom:0.5rem;">Mission 2 — Réseau & Système</div>
+                  <div style="font-size:0.75rem;font-weight:600;color:#A3B4C8;margin-bottom:0.5rem;">Mission 2 — Réseau &amp; Système</div>
                   <ul style="font-size:0.78rem;color:var(--gray-300);line-height:1.7;padding-left:1.1rem;">
                     <li>Configuration VLAN, routage inter-VLAN, NAT</li>
                     <li>Active Directory + gestion des utilisateurs</li>
@@ -848,72 +844,50 @@
                     <li>Profils itinérants et partages personnels</li>
                   </ul>
                 </div>
-
                 <div style="background:var(--gray-900);border:1px solid var(--gray-600);border-radius:8px;padding:0.9rem 1rem;grid-column:1/-1;">
-                  <div style="font-size:0.75rem;font-weight:600;color:#A3B4C8;margin-bottom:0.5rem;">Mission 3 — Services avancés & Sécurité</div>
+                  <div style="font-size:0.75rem;font-weight:600;color:#A3B4C8;margin-bottom:0.5rem;">Mission 3 — Services Avancés &amp; Sécurité</div>
                   <ul style="font-size:0.78rem;color:var(--gray-300);line-height:1.7;padding-left:1.1rem;columns:2;gap:1.5rem;">
-                    <li>Déploiement de deux serveurs web avec certificat HTTPS/TLS</li>
-                    <li>Mise en place d'un load balancer</li>
-                    <li>Agrégation de liens LACP pour la haute disponibilité</li>
-                    <li>Supervision du parc avec Zabbix (SNMP, agents)</li>
+                    <li>2 serveurs web avec certificat HTTPS/TLS</li>
+                    <li>Load balancer pour la haute disponibilité</li>
+                    <li>Agrégation de liens LACP</li>
+                    <li>Supervision du parc avec Zabbix</li>
                     <li>Centralisation des logs avec Graylog</li>
-                    <li>Gestion du parc et des incidents avec GLPI</li>
+                    <li>Gestion du parc et incidents avec GLPI</li>
                   </ul>
                 </div>
-
               </div>
             </div>
 
-            <!-- Technologies utilisées -->
             <div style="margin-bottom:1.5rem;">
               <div style="font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid var(--gray-600);">⚙️ Technologies Utilisées</div>
-              <div style="display:flex;flex-direction:column;gap:0.6rem;">
-
+              <div style="display:flex;flex-direction:column;gap:0.65rem;">
                 <div style="display:flex;align-items:flex-start;gap:10px;">
-                  <span style="font-size:0.7rem;font-weight:600;color:var(--gray-300);min-width:130px;padding-top:2px;">Infrastructure</span>
+                  <span style="font-size:0.7rem;font-weight:600;color:var(--gray-300);min-width:140px;padding-top:3px;">Infrastructure</span>
                   <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-                    <span class="ppe-tech">Windows Server 2022</span>
-                    <span class="ppe-tech">Rocky Linux</span>
-                    <span class="ppe-tech">Debian</span>
-                    <span class="ppe-tech">VMware</span>
+                    <span class="ppe-tech">Windows Server 2022</span><span class="ppe-tech">Rocky Linux</span><span class="ppe-tech">Debian</span><span class="ppe-tech">VMware</span>
                   </div>
                 </div>
-
                 <div style="display:flex;align-items:flex-start;gap:10px;">
-                  <span style="font-size:0.7rem;font-weight:600;color:var(--gray-300);min-width:130px;padding-top:2px;">Annuaire & Réseau</span>
+                  <span style="font-size:0.7rem;font-weight:600;color:var(--gray-300);min-width:140px;padding-top:3px;">Annuaire &amp; Réseau</span>
                   <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-                    <span class="ppe-tech">Active Directory</span>
-                    <span class="ppe-tech">DNS</span>
-                    <span class="ppe-tech">DHCP</span>
-                    <span class="ppe-tech">VLAN</span>
-                    <span class="ppe-tech">LACP</span>
-                    <span class="ppe-tech">Load Balancer</span>
+                    <span class="ppe-tech">Active Directory</span><span class="ppe-tech">DNS</span><span class="ppe-tech">DHCP</span><span class="ppe-tech">VLAN</span><span class="ppe-tech">LACP</span><span class="ppe-tech">Load Balancer</span>
                   </div>
                 </div>
-
                 <div style="display:flex;align-items:flex-start;gap:10px;">
-                  <span style="font-size:0.7rem;font-weight:600;color:var(--gray-300);min-width:130px;padding-top:2px;">Sécurité & Web</span>
+                  <span style="font-size:0.7rem;font-weight:600;color:var(--gray-300);min-width:140px;padding-top:3px;">Sécurité &amp; Web</span>
                   <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-                    <span class="ppe-tech">HTTPS / TLS</span>
-                    <span class="ppe-tech">GPO</span>
-                    <span class="ppe-tech">Firewall</span>
-                    <span class="ppe-tech">NAT</span>
+                    <span class="ppe-tech">HTTPS / TLS</span><span class="ppe-tech">GPO</span><span class="ppe-tech">Firewall</span><span class="ppe-tech">NAT</span>
                   </div>
                 </div>
-
                 <div style="display:flex;align-items:flex-start;gap:10px;">
-                  <span style="font-size:0.7rem;font-weight:600;color:var(--gray-300);min-width:130px;padding-top:2px;">Supervision & Logs</span>
+                  <span style="font-size:0.7rem;font-weight:600;color:var(--gray-300);min-width:140px;padding-top:3px;">Supervision &amp; Logs</span>
                   <div style="display:flex;flex-wrap:wrap;gap:0.4rem;">
-                    <span class="ppe-tech">Zabbix</span>
-                    <span class="ppe-tech">Graylog</span>
-                    <span class="ppe-tech">GLPI</span>
+                    <span class="ppe-tech">Zabbix</span><span class="ppe-tech">Graylog</span><span class="ppe-tech">GLPI</span>
                   </div>
                 </div>
-
               </div>
             </div>
 
-            <!-- Compétences BTS SIO -->
             <div>
               <div style="font-family:'Syne',sans-serif;font-size:0.75rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.75rem;padding-bottom:0.4rem;border-bottom:1px solid var(--gray-600);">🎓 Compétences BTS SIO mobilisées</div>
               <div style="display:flex;flex-wrap:wrap;gap:0.5rem;">
@@ -927,7 +901,9 @@
 
           </div>
         </div>
+      </div>
 
+      <div style="margin-top:2rem;">
         <div class="ppe-section-title">📋 Rapport de Synthèse de Stage</div>
         <div class="ppe-card" id="rapport-synthese" style="border-left: 3px solid var(--accent); background: linear-gradient(135deg, var(--gray-900) 0%, rgba(204,109,61,0.04) 100%);">
           <div class="ppe-card-header" onclick="togglePpe('rapport-synthese')">
@@ -1540,7 +1516,7 @@
         <div class="contact-links">
           <a class="contact-link-item" href="/cdn-cgi/l/email-protection#25534a5157400b4048444c4965405d40485549400b464a48">
             <div class="cli-icon">✉️</div>
-            <div><div class="cli-label">Email</div><div class="cli-value"><span class="__cf_email__" data-cfemail="53253c2721367d363e323a3f13362b363e233f367d303c3e"><span class="__cf_email__" data-cfemail="8efde7e3e1e0a0edeff4ebbfb9cee9e3efe7e2a0ede1e3">[email&#160;protected]</span></span></div></div>
+            <div><div class="cli-label">Email</div><div class="cli-value"><span class="__cf_email__" data-cfemail="53253c2721367d363e323a3f13362b363e233f367d303c3e"><span class="__cf_email__" data-cfemail="1063797d7f7e3e73716a75212750777d71797c3e737f7d">[email&#160;protected]</span></span></div></div>
           </a>
           <a class="contact-link-item" href="https://www.linkedin.com/in/simon-cazé-0b7527351" target="_blank">
             <div class="cli-icon">💼</div>
@@ -1635,8 +1611,11 @@
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.fade-in').forEach(el => {
+    el.classList.add('will-animate');
+    observer.observe(el);
+  });
 
   // Smooth scroll
   document.querySelectorAll('a[href^="#"]').forEach(a => {
